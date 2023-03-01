@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import Button from "./Button";
 import Form from "./Form";
-import TextInput from "./TextInput";
+import Textinput from "./Textinput";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -32,7 +32,7 @@ export default function LoginForm() {
 
   return (
     <Form style={{ height: "330px" }} onSubmit={handleSubmit}>
-      <TextInput
+      <Textinput
         type="text"
         placeholder="Enter email"
         icon="alternate_email"
@@ -41,7 +41,7 @@ export default function LoginForm() {
         onChange={(e) => setEmail(e.target.value)}
       />
 
-      <TextInput
+      <Textinput
         type="password"
         placeholder="Enter password"
         icon="lock"
