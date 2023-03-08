@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import useVideoList from "../hooks/useVideoList";
 import Video from "./Video";
 
-const Videos = () => {
+export default function Videos() {
   const [page, setPage] = useState(1);
   const { loading, error, videos, hasMore } = useVideoList(page);
 
@@ -14,12 +14,20 @@ const Videos = () => {
         <InfiniteScroll
           dataLength={videos.length}
           hasMore={hasMore}
-          loader="Loading...."
+          loader="Loading..."
           next={() => setPage(page + 8)}
         >
           {videos.map((video) =>
             video.noq > 0 ? (
-              <Link to={`/quiz/${video.youtubeID}`} key={video.youtubeID}>
+              <Link
+                to={{
+                  pathname: `/quiz/${video.youtubeID}`,
+                  state: {
+                    videoTitle: video.title,
+                  },
+                }}
+                key={video.youtubeID}
+              >
                 <Video
                   title={video.title}
                   id={video.youtubeID}
@@ -37,12 +45,9 @@ const Videos = () => {
           )}
         </InfiniteScroll>
       )}
-
-      {!loading && videos.length === 0 && <div> No data found</div>}
-      {error && <div>There was an error</div>}
-      {loading && <div>Loading</div>}
+      {!loading && videos.length === 0 && <div>No data found!</div>}
+      {error && <div>There was an error!</div>}
+      {loading && <div>Loading...</div>}
     </div>
   );
-};
-
-export default Videos;
+}
